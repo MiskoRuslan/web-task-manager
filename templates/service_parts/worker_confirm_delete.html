@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="centered_div">
+  <h1>Delete worker</h1>
+  <p>Are you sure you want to delete the: {{ worker.position.name }} {{ worker.first_name }} {{ worker.last_name }}?</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete" class="btn-danger">
+    <a href="{% url 'web_service:workers-list' %}" class="default-btn">No, back to workers list</a>
+  </form>
+  </div>
+{% endblock %}

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Workers List</h1>
+  <h1>Task List</h1>
   <a href="{% url 'web_service:task-create' %}">Add task</a>
 
   <table>
     <tr>
+      <th>Completed</th>
       <th>ID</th>
       <th>Name</th>
       <th>Priority</th>
@@ -14,11 +15,23 @@
     </tr>
   {% for task in tasks_list %}
     <tr>
+      <td>
+        <form method="post" action="{% url 'web_service:task-update' task.pk %}">
+          {% csrf_token %}
+          {% if task.is_completed %}
+          	<span>Yes</span>
+              <a href="#">✅</a>
+            {% else %}
+              <span>No</span>
+              <a href="#">❌</a>
+          {% endif %}
+        </form>
+      </td>
       <td>{{ task.pk }}</td>
       <td>{{ task.name }}</td>
       <td>{{ task.priority }}</td>
       <td>{{ task.deadline }}</td>
-      <td><a href="{% url 'web_service:task-update' task.pk%}">Update</a></td>
+      <td><a href="{% url 'web_service:task-update' task.pk %}">Update</a></td>
     </tr>
   {% endfor %}
   </table>

@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from web_task_manager.settings import AUTH_USER_MODEL
@@ -7,12 +9,18 @@ from web_task_manager.settings import AUTH_USER_MODEL
 class TaskType(models.Model):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ("name", )
+
     def __str__(self):
         return self.name
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=255, default="Intern")
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -20,6 +28,9 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ("position__name", )
 
     def __str__(self):
         return f"{self.username} -> {self.position}"
@@ -44,6 +55,9 @@ class Task(models.Model):
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(AUTH_USER_MODEL)
+
+    class Meta:
+        ordering = ["priority"]
 
     def __str__(self):
         return self.name

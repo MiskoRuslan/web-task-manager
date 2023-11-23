@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 style="margin-left: 700px">My account</h1>
+  <div class="profile-table">
+    <br>
+    <br>
+    <table style="margin-left: 160px">
+      <tr>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Position</th>
+        <th>Email</th>
+      </tr>
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.position }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+
+    </table>
+  </div>
+{% endblock %}

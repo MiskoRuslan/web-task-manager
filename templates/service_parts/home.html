@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-	<h1>
-    Welcome on home page
-  </h1>
+  <div class="container">
+  <div class="left-div shadow"><a href="{% url 'web_service:worker-profile' %}"><img src="{% static 'images/profile_image.png' %}" width="500px" height="500px" alt="Home"></a></div>
+  <div class="right-divs">
+    <div class="right-div shadow"><a href="{% url 'web_service:my-task-list' %}"><img src="{% static 'images/my_tasks_btn.png' %}" width="800px" height="220px" alt="Home"></a></div>
+    <div class="right-div shadow"><a href="{% url 'web_service:tasks-list' %}"><img src="{% static 'images/all_tasks_btn.png' %}" width="800px" height="220px" alt="Home"></a></div>
+  </div>
+</div>
 {% endblock %}

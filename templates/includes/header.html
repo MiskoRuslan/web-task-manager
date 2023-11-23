@@ -1,14 +1,21 @@
-<div class="sidebar">
-  {% if user.is_authenticated %}
-    <p>User: {{ user.username }}</p>
-    <a href="{% url 'logout' %}">Log out</a>
+<div class="my-header shadow">
+  {% load static%}
+  <a class="home-logo" href="{% url 'web_service:home-page' %}">
+    <img src="{% static 'images/home-page.png' %}" alt="Home" width="40" height="40" class="zoomable">
+  </a>
+  <div>
+    <a href="{% url 'web_service:tasks-list' %}" class="zoomable-text" >Tasks</a>
+    <a href="{% url 'web_service:workers-list' %} " class="zoomable-text" >Workers</a>
+    <a href="{% url 'web_service:positions-list' %}" class="zoomable-text" >Positions</a>
+    <a href="{% url 'web_service:tasks-type-list' %}" class="zoomable-text" >Task Types</a>
+  </div>
+
+  <div class="right-profile-button">
+    {% if user.is_authenticated %}
+    <p>👤{{ user.username }}</p>
+    <a class="login-logout-button" href="{% url 'logout' %}">🚪ㅤLog outㅤㅤ</a>
     {% else %}
-    <a href="{% url 'login' %}"> Log In</a>
+    <a class="login-logout-button" href="{% url 'login' %}">ㅤㅤLog Inㅤㅤ</a>
   {% endif %}
-  <br>
-  <a href="{% url 'web_service:home-page' %}">Home page</a>
-  <a href="{% url 'web_service:tasks-list' %}">List of Tasks</a>
-  <a href="{% url 'web_service:workers-list' %}">List of Workers</a>
-  <a href="{% url 'web_service:positions-list' %}">List of Positions</a>
-  <a href="{% url 'web_service:tasks-type-list' %}">List of Task Types</a>
+  </div>
 </div>

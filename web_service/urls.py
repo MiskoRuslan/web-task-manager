@@ -16,6 +16,10 @@ from web_service.views import (
     TasksListView,
     TaskCreateView,
     TaskUpdateView,
+    WorkerUpdateView,
+    WorkerDeleteView,
+    WorkerProfileView,
+    my_task_list_view,
 )
 
 app_name = "web_service"
@@ -33,7 +37,11 @@ urlpatterns = [
     path("workers-list/", WorkersListView.as_view(), name="workers-list"),
     path("worker-list/<int:pk>/detail", WorkersDetailView.as_view(), name="worker-detail"),
     path("worker-create/", WorkerCreateView.as_view(), name="worker-create"),
+    path("worker-list/<int:pk>/detail/update/", WorkerUpdateView.as_view(), name="worker-update"),
+    path("worker-list/<int:pk>/detail/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
     path("tasks-list/", TasksListView.as_view(), name="tasks-list"),
     path("tasks-list/create/", TaskCreateView.as_view(), name="task-create"),
-    path('tasks/<int:pk>/update/', TaskUpdateView.as_view(), name='task-update'),
+    path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
+    path("my-profile/", WorkerProfileView.as_view(), name="worker-profile"),
+    path('my-tasks/', my_task_list_view, name='my-task-list'),
 ]
