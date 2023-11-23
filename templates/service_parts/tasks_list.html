@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Workers List</h1>
+  <a href="{% url 'web_service:task-create' %}">Add task</a>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Priority</th>
+      <th>Deadline</th>
+      <th>Update</th>
+    </tr>
+  {% for task in tasks_list %}
+    <tr>
+      <td>{{ task.pk }}</td>
+      <td>{{ task.name }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.deadline }}</td>
+      <td><a href="{% url 'web_service:task-update' task.pk%}">Update</a></td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

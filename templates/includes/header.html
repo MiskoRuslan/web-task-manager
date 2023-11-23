@@ -1,7 +1,14 @@
 <div class="sidebar">
-  <a href="#">Home page</a>
-  <a href="#">List of Tasks</a>
-  <a href="#">List of Workers</a>
+  {% if user.is_authenticated %}
+    <p>User: {{ user.username }}</p>
+    <a href="{% url 'logout' %}">Log out</a>
+    {% else %}
+    <a href="{% url 'login' %}"> Log In</a>
+  {% endif %}
+  <br>
+  <a href="{% url 'web_service:home-page' %}">Home page</a>
+  <a href="{% url 'web_service:tasks-list' %}">List of Tasks</a>
+  <a href="{% url 'web_service:workers-list' %}">List of Workers</a>
   <a href="{% url 'web_service:positions-list' %}">List of Positions</a>
   <a href="{% url 'web_service:tasks-type-list' %}">List of Task Types</a>
 </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from web_task_manager.settings import AUTH_USER_MODEL
 
@@ -11,17 +12,20 @@ class TaskType(models.Model):
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, default="Intern")
 
     def __str__(self):
         return self.name
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    position = models.ForeignKey(Position, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return {self.username}
+        return f"{self.username} -> {self.position}"
+
+    def get_absolute_url(self):
+        return reverse("web_service:worker-detail", kwargs={"pk": self.pk})
 
 
 class Task(models.Model):

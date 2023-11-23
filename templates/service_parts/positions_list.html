@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
-    {% for position in positions_list %}
-      <li>{{ position.name }}</li>
-    {% endfor %}
-  </ul>
+  <a href="{% url 'web_service:positions-create' %}">Create position</a>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Position</th>
+      <th>Update/Delete</th>
+    </tr>
+  {% for positions in positions_list %}
+    <tr>
+      <td>{{ positions.pk }}</td>
+      <td>{{ positions.name }}</td>
+      <td>
+        <a href="{% url 'web_service:positions-update' positions.pk %}">Update</a>
+        <a href="{% url 'web_service:positions-delete' positions.pk %}">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Workers List</h1>
+  <a href="{% url 'web_service:worker-create' %}">Add worker</a>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Update/Delete</th>
+    </tr>
+  {% for worker in workers_list %}
+    <tr>
+      <td>{{ worker.pk }}</td>
+      <td>{{ worker.username }}</td>
+      <td>
+        <a href="#">Update</a>
+        <a href="#">Delete</a>
+        <a href="{% url 'web_service:worker-detail' worker.pk %}">Details</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

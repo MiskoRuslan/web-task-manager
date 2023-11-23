@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <ul>
-    {% for type in tasks_type_list %}
-      <li>{{ type.name }}</li>
-    {% endfor %}
-  </ul>
+  <a href="{% url 'web_service:tasks-type-create' %}">Create task type</a>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Task Type</th>
+      <th>Update/Delete</th>
+    </tr>
+  {% for type in tasks_type_list %}
+    <tr>
+      <td>{{ type.pk }}</td>
+      <td>{{ type.name }}</td>
+      <td>
+        <a href="{% url 'web_service:tasks-type-update' type.pk %}">Update</a>
+        <a href="{% url 'web_service:tasks-type-delete' type.pk %}">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+
+
 {% endblock %}
