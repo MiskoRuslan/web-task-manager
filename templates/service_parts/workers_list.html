@@ -1,10 +1,20 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Workers List</h1>
-  <a href="{% url 'web_service:worker-create' %}">Add worker</a>
+  <h1 style="margin-left: 670px">Workers List</h1>
+  <a href="{% url 'web_service:worker-create' %}" class="default-btn" style="margin-left: 700px">Add worker</a>
 
-  <table>
+  <form action="" method="get" style="margin-left: 650px">
+
+    {{ search_form }}
+    <input type="submit" value="🔍">
+  
+  </form>
+
+  <div style="margin-top: 40px">
+
+  <table class="centered">
     <tr>
       <th>ID</th>
       <th>Username</th>
@@ -15,9 +25,11 @@
       <td>{{ worker.pk }}</td>
       <td>{{ worker.username }}</td>
       <td>
-        <a href="{% url 'web_service:worker-detail' worker.pk %}">Details</a>
+        <a href="{% url 'web_service:worker-detail' worker.pk %}" style="font-size: 20px">📋</a>
       </td>
     </tr>
   {% endfor %}
   </table>
+
+  </div>
 {% endblock %}

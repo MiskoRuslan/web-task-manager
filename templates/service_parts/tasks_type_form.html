@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Create Task Type</h1>
+  {% if user.position.pk is 1 or user.position.pk is 2%}
+
+    <div class="form_style_position">
+  <h1>Task type options:</h1>
   <form action="" method="post" novalidate>
     {% csrf_token %}
-    <input type="submit" value="Submit">
     {{ form.as_p }}
+    <input type="submit" value="Submit" style="width: 220px" class="default-btn">
   </form>
+  </div>
+  	{% else %}
+      <div class="form_style_task">
+        <h1>You don`t have permissions to create or update task types</h1>
+        <a href="{% url 'web_service:tasks-type-list' %}" class="default-btn" style="margin-left: 170px">Back to list</a>
+      </div>
+  {% endif %}
 {% endblock %}

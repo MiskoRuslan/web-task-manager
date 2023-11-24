@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Create position</h1>
+  {% if user.position.pk is 1 or user.position.pk is 3%}
+  	<div class="form_style_position">
+
+  <h1>Position options:</h1>
   <form action="" method="post" novalidate>
     {% csrf_token %}
-    <input type="submit" value="Submit">
     {{ form.as_p }}
+    <input type="submit" value="Submit" style="width: 220px" class="default-btn">
   </form>
+  </div>
+    {% else %}
+    <div class="form_style_task">
+
+      <h1>You don`t have permissions to create or update position</h1>
+      <a href="{% url 'web_service:positions-list' %}" class="default-btn" style="margin-left: 170px">Back to list</a>
+
+    </div>
+  {% endif %}
 {% endblock %}

@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a href="{% url 'web_service:tasks-type-create' %}">Create task type</a>
+  <h1 style="margin-left: 655px">Task Types List</h1>
+  <a href="{% url 'web_service:tasks-type-create' %}" class="default-btn" style="margin-left: 700px">Create task type</a>
 
-  <table>
+  <div style="margin-top: 30px">
+
+  <table class="centered">
     <tr>
       <th>ID</th>
       <th>Task Type</th>
@@ -14,12 +17,14 @@
       <td>{{ type.pk }}</td>
       <td>{{ type.name }}</td>
       <td>
-        <a href="{% url 'web_service:tasks-type-update' type.pk %}">Update</a>
-        <a href="{% url 'web_service:tasks-type-delete' type.pk %}">Delete</a>
+        <a href="{% url 'web_service:tasks-type-update' type.pk %}">🔄</a>
+        <a href="{% url 'web_service:tasks-type-delete' type.pk %}">🗑️</a>
       </td>
     </tr>
   {% endfor %}
   </table>
+
+  </div>
 
 
 {% endblock %}

@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Delete Task Type</h1>
-  <p>Are you sure you want to delete the Task Type: {{ tasktype.name }}?</p>
-  <p><i>All tasks that link to this type will be also deleted!</i></p>
+  {% if user.position.pk is 1 or user.position.pk is 2 %}
+    <div class="centered_div">
+  <h1>Delete task type</h1>
+  <p>Are you sure you want to delete task type: {{ tasktype.name }}?</p>
+    <span style="color: #ad2424">After delete, all tasks that been connect with this type will be deleted!</span>
   <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Yes, delete" class="btn brn-danger">
+    <input type="submit" value="Yes, delete" class="btn-danger">
+    <a href="{% url 'web_service:tasks-type-list' %}" class="default-btn">No, back to task types list</a>
   </form>
+  </div>
+    {% else %}
+      <div class="form_style_task">
+        <h1>You don`t have permissions to delete task types</h1>
+       <a href="{% url 'web_service:tasks-type-list' %}" class="default-btn" style="margin-left: 170px">Back to list</a>
+      </div>
+  {% endif %}
 {% endblock %}

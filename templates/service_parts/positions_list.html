@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a href="{% url 'web_service:positions-create' %}">Create position</a>
-  <table>
+  <h1 style="margin-left: 690px">Positions List</h1>
+  <a href="{% url 'web_service:positions-create' %}" class="default-btn" style="margin-left: 720px">Create position</a>
+  <div class="centered" style="margin-top: 30px">
+
+  <table class="centered">
     <tr>
       <th>ID</th>
       <th>Position</th>
@@ -13,11 +16,13 @@
       <td>{{ positions.pk }}</td>
       <td>{{ positions.name }}</td>
       <td>
-        <a href="{% url 'web_service:positions-update' positions.pk %}">Update</a>
-        <a href="{% url 'web_service:positions-delete' positions.pk %}">Delete</a>
+        <a href="{% url 'web_service:positions-update' positions.pk %}">🔄</a>
+        <a href="{% url 'web_service:positions-delete' positions.pk %}">🗑️</a>
       </td>
     </tr>
   {% endfor %}
   </table>
+
+  </div>
 
 {% endblock %}

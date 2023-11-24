@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Task List</h1>
-  <a href="{% url 'web_service:task-create' %}">Add task</a>
+  <h1 style="margin-left: 675px">Task List</h1>
+  <a href="{% url 'web_service:task-create' %}" class="default-btn" style="margin-left: 700px">Add task</a>
+
+  <div style="margin-left: 420px;
+              margin-top: 40px;">
+
+  <form action="" method="get" style="margin-left: 230px">
+
+    {{ search_form }}
+    <input type="submit" value="🔍">
+
+  </form>
 
   <table>
     <tr>
@@ -11,28 +21,76 @@
       <th>Name</th>
       <th>Priority</th>
       <th>Deadline</th>
-      <th>Update</th>
+      <th>Update/Detail</th>
     </tr>
+
+
   {% for task in tasks_list %}
     <tr>
-      <td>
-        <form method="post" action="{% url 'web_service:task-update' task.pk %}">
-          {% csrf_token %}
-          {% if task.is_completed %}
-          	<span>Yes</span>
-              <a href="#">✅</a>
+
+      {% if current_date > task.deadline and not task.is_completed %}
+      	<td style="background-color: rgba(255,0,0,0.47)">
+        {% if task.is_completed %}
+          	<span>✅</span>
             {% else %}
-              <span>No</span>
-              <a href="#">❌</a>
+              <span>❌</span>
           {% endif %}
-        </form>
+      </td>
+      <td style="background-color: rgba(255,0,0,0.47)" >{{ task.pk }}</td>
+      <td style="background-color: rgba(255,0,0,0.47)" >{{ task.name }}</td>
+      <td style="background-color: rgba(255,0,0,0.47)" >{{ task.priority }}</td>
+      <td style="background-color: rgba(255,0,0,0.47)" >{{ task.deadline }}</td>
+      <td style="background-color: rgba(255,0,0,0.47)" >
+        <a href="{% url 'web_service:task-update' task.pk %}">🔄</a>
+        <a href="{% url 'web_service:task-detail' task.pk %}">📋</a>
+      </td>
+        {% if user in task.assignees.all %}
+          <td>Me</td>
+        {% endif %}
+
+
+        {% elif task.is_completed %}
+        <td style="background-color: rgba(93,133,62,0.6)">
+        {% if task.is_completed %}
+          	<span>✅</span>
+            {% else %}
+              <span>❌</span>
+          {% endif %}
+      </td>
+      <td style="background-color: rgba(93,133,62,0.6)">{{ task.pk }}</td>
+      <td style="background-color: rgba(93,133,62,0.6)">{{ task.name }}</td>
+      <td style="background-color: rgba(93,133,62,0.6)">{{ task.priority }}</td>
+      <td style="background-color: rgba(93,133,62,0.6)">{{ task.deadline }}</td>
+      <td style="background-color: rgba(93,133,62,0.6)">
+        <a href="{% url 'web_service:task-update' task.pk %}">🔄</a>
+        <a href="{% url 'web_service:task-detail' task.pk %}">📋</a>
+      </td>
+        {% if user in task.assignees.all %}
+          <td>Me</td>
+        {% endif %}
+        {% else %}
+        <td>
+        {% if task.is_completed %}
+          	<span>✅</span>
+            {% else %}
+              <span>❌</span>
+          {% endif %}
       </td>
       <td>{{ task.pk }}</td>
       <td>{{ task.name }}</td>
       <td>{{ task.priority }}</td>
       <td>{{ task.deadline }}</td>
-      <td><a href="{% url 'web_service:task-update' task.pk %}">Update</a></td>
+      <td>
+        <a href="{% url 'web_service:task-update' task.pk %}">🔄</a>
+        <a href="{% url 'web_service:task-detail' task.pk %}">📋</a>
+      </td>
+        {% if user in task.assignees.all %}
+          <td>Me</td>
+        {% endif %}
+      {% endif %}
+
     </tr>
   {% endfor %}
   </table>
+  </div>
 {% endblock %}

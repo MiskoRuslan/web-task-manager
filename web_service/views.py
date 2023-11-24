@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -5,9 +7,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from django.urls import reverse_lazy
 from django.views import generic, View
-from django.views.generic import DetailView
 
-from web_service.forms import WorkerCreationForm, TaskForm
+from web_service.forms import WorkerCreationForm, TaskForm, WorkerSearchForm, TaskSearchForm
 from web_service.models import Position, TaskType, Worker, Task
 
 
@@ -76,6 +77,18 @@ class WorkersListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "workers_list"
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(WorkersListView, self).get_context_data(**kwargs)
+        context["search_form"] = WorkerSearchForm()
+        return context
+
+    def get_queryset(self):
+        queryset = super(WorkersListView, self).get_queryset()
+        username = self.request.GET.get("username")
+        if username:
+            return queryset.filter(username__icontains=username)
+        return queryset
+
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = WorkerCreationForm
@@ -117,6 +130,19 @@ class TasksListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "tasks_list"
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(TasksListView, self).get_context_data(**kwargs)
+        context["search_form"] = TaskSearchForm()
+        context["current_date"] = date.today()
+        return context
+
+    def get_queryset(self):
+        queryset = super(TasksListView, self).get_queryset()
+        name = self.request.GET.get("name")
+        if name:
+            return queryset.filter(name__icontains=name)
+        return queryset
+
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
@@ -130,6 +156,21 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = TaskForm
     template_name = "service_parts/task_form.html"
     success_url = reverse_lazy("web_service:tasks-list")
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    template_name = "service_parts/task_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task_pk = self.kwargs.get("pk")
+        model = Task.objects.get(pk=task_pk)
+        in_time = model.deadline >= date.today()
+        if not in_time and model.is_completed:
+            in_time = True
+        context["in_time"] = in_time
+        return context
 
 
 @login_required

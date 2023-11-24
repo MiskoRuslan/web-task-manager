@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="centered" style="
+    background-color: rgba(255,255,255,0.57);
+    border-radius: 20px;
+    padding: 20px;
+  "
+  >
+
+  <h1>Name: {{ task.name }}</h1>
+  <p>Description: {{ task.description }}</p>
+  <p>Priority: {{ task.priority }}</p>
+  <p>Deadline: {{ task.deadline }}</p>
+
+  {% if task.assignees.all %}
+    <p>Assignees:</p>
+    {% for worker in task.assignees.all %}
+      <p style="background-color: rgba(255,255,255,0.52)"> - {{ worker.username }}
+        <a href="{% url 'web_service:worker-detail' worker.pk %}">📋</a>
+      </p>
+    {% endfor %}
+
+  {% else %}
+    <p>No assignees :(</p>
+  {% endif %}
+
+  {% if task.is_completed %}
+    <p style="color: #5d853e">Completed!</p>
+    {% else %}
+      <p>In development...</p>
+  {% endif %}
+  {% if in_time %}
+  	<p>The deadline has not been violated</p>
+    {% else %}
+    <p>The deadline was missed</p>
+  {% endif %}
+
+  </div>
+
+{% endblock %}

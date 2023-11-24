@@ -1,11 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a href="{% url 'web_service:worker-update' worker.pk%}" class="warning-brn">Update</a>
-  <a href="{% url 'web_service:worker-delete' worker.pk%}" class="btn-danger">Delete</a>
-	<h1>Worker ID {{ worker.pk }}</h1>
+  <div class="worker-detail">
+
+	<h1>Worker ID {{ worker.pk }} 👤</h1>
   <p>Username: {{ worker.username }}</p>
   <p>First name: {{ worker.first_name }}</p>
   <p>Last name: {{ worker.last_name }}</p>
   <p>Position: {{ worker.position }}</p>
+
+  <ul>
+  <p>Active tasks:</p>
+  {% for task in worker.task_set.all %}
+  	<li><a href="{% url 'web_service:task-detail' task.pk %}">{{ task.name }}</a></li>
+  {% endfor %}
+  </ul>
+
+  </div>
+
+  <div style="margin-top: 40px; margin-left: 700px">
+
+  <a href="{% url 'web_service:worker-update' worker.pk%}" class="warning-brn">Update</a>
+  <a href="{% url 'web_service:worker-delete' worker.pk%}" class="btn-danger">Delete</a>
+
+  </div>
 {% endblock %}
