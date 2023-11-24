@@ -47,6 +47,11 @@ Or you can create your own using the command:
 
 It is a simple conceptual web application that allows the worker to conveniently manage work on tasks
 
+And for start server working:
+
+```python manage.py runserver```
+
+
 #     Home page
 
 ![Screenshot_1.png](images%20for%20readme%2FScreenshot_1.png)
