@@ -3,8 +3,7 @@
 
 {% block content %}
 	<h1 style="margin-left: 700px">Log in</h1>
-  <div class="centered">
-
+  <div class="form_style_task" style="text-align: center">
     <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
 
@@ -13,7 +12,7 @@
       {% endif %}
       {{ form.as_p }}
       <br>
-      <input type="submit" value="Log In" class="default-btn" style="margin-left: 100px">
+      <input type="submit" value="Log In" class="default-btn" style="width: 250px">
       <input type="hidden" name="next" value="{{ next }}">
     </form>
 

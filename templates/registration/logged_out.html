@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<p>Logged Out</p>
-  <a href="{% url 'login' %}">Log in</a>
+	<div class="form_style_task" >
+
+      <h1 style="margin-left: 150px">Welcome!</h1>
+        <p style="margin-left: 150px; margin-bottom:40px">Click here to Log In</p>
+      <a href="{% url 'login' %}" class="default-btn" style="margin: 120px; padding-left: 80px;padding-right: 80px">Log in</a>
+
+  </div>
 {% endblock %}
