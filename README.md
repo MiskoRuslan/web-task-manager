@@ -41,6 +41,14 @@ Next, you may need access to the admin panel to work. For this, you can use a re
 username: admin.user
 password: 1qazcde3
 ```
+
+Or better to use:
+```
+username: misko.ruslan6
+password: 1qazcde3
+```
+For login site
+
 Or you can create your own using the command:
 
 ```python manage.py createsuperuser```
