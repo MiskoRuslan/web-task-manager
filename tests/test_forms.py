@@ -10,7 +10,6 @@ from web_service.forms import (
 
 class WebServiceFormsTestCase(TestCase):
     def setUp(self):
-        # Create a superuser for testing
         self.admin_user = get_user_model().objects.create_superuser(
             username='admin',
             password='adminpassword',

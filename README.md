@@ -48,7 +48,6 @@ username: misko.ruslan6
 password: 1qazcde3
 ```
 For login site
-
 Or you can create your own using the command:
 
 ```python manage.py createsuperuser```

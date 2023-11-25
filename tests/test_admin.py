@@ -14,7 +14,6 @@ class AdminTest(TestCase):
             password='adminpassword',
         )
         self.client.force_login(self.user)
-
         self.task_type = TaskType.objects.create(name='Test Type')
         self.position = Position.objects.create(name='Test Position')
         self.worker = Worker.objects.create(username='test_worker', position=self.position)
